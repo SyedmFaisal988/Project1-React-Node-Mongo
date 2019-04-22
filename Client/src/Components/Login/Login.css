@@ -1,0 +1,42 @@
+
+.login-form-wrapper{
+    height: 41em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.login-form-wrapper h1{
+    margin: 45px 0px 0px 10px; 
+    float: right;
+}
+.login-form-wrapper img{
+    float: left;
+}
+.login-btn{
+    float: right;
+}
+
+.login-header{
+    display: inline;
+}
+
+.login-header>h1{
+    margin-top: 45px;
+}
+
+.resize{
+    width: 150px;
+}
+
+.imageContainer{
+    display: inline
+}
+@media only screen and (max-width: 600px){
+    img.resize{
+        width: 100px;;
+    }
+    .login-header>h1{
+        font-size: 50px;
+        margin-top: 24px;
+    }
+}
