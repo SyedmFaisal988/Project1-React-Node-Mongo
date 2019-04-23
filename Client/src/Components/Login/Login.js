@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Login.css';
 import Input from './Input';
 import loginImg from '../../images/login2.png'
+import axois from 'axios';
 
 class Login extends Component {
     state = {
@@ -20,7 +21,27 @@ class Login extends Component {
         status: "",
         displayError: false,
     }
+    fetchDataFromServer=()=>{
+        // fetch('http://localhost:5000/api/getData')
+        // .then(res=>{
+        //     res.json()
+        //     .then(data=>{
+        //         console.log("from server", data);
+        //     })
+        // })
+        // .catch(err=>{
+        //     console.log(err);
+        // })
+        axois.post('http://localhost:5000/api/getPost', {
+            id: 'hellow',
+            message: 'hey',
+        })
+        .then(res =>{
+            console.log('runned');
+        })
+    }
     Submit = (event) => {
+        this.fetchDataFromServer();
         const {userName, passWord, users} = this.state;
         const { routeTo } = this.props;
         event.preventDefault();
@@ -46,6 +67,9 @@ class Login extends Component {
         this.setState({
             [event.target.name]: event.target.value,
         })
+    }
+    SignUp = ()=>{
+        console.log("Sign Up");
     }
     render() {
         const {userName, passWord} = this.state;
@@ -75,10 +99,13 @@ class Login extends Component {
                         value={passWord}
                         label="Pass Word"
                             />
-
                         <div className="login-btn" >
                             <button type="submit" className="btn waves-effect waves-light light-blue darken-2" name="action">Submit
                                 <i className="material-icons right">send</i>
+                            </button>
+                        </div>
+                        <div className="signBtn-btn" >
+                            <button type="btn" className="btn waves-effect waves-light light-blue darken-2" onClick={this.SignUp}>Sign Up
                             </button>
                         </div>
                     </form>

@@ -1,3 +1,7 @@
+.signBtn-btn{
+    align-items: flex-end;
+    justify-content: flex-end;
+}
 
 .login-form-wrapper{
     height: 41em;

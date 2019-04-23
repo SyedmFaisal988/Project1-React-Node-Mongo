@@ -1,0 +1,23 @@
+{
+  "name": "project1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"cd Backend && nodemon app.js\" \"cd Client && npm start\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyedmFaisal988/Project1-React-Node-Mongo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SyedmFaisal988/Project1-React-Node-Mongo/issues"
+  },
+  "homepage": "https://github.com/SyedmFaisal988/Project1-React-Node-Mongo#readme",
+  "dependencies": {
+    "concurrently": "^4.1.0"
+  }
+}
