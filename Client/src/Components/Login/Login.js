@@ -21,46 +21,53 @@ class Login extends Component {
         status: "",
         displayError: false,
     }
-    fetchDataFromServer=()=>{
-        // fetch('http://localhost:5000/api/getData')
-        // .then(res=>{
-        //     res.json()
-        //     .then(data=>{
-        //         console.log("from server", data);
-        //     })
-        // })
-        // .catch(err=>{
-        //     console.log(err);
-        // })
-        axois.post('http://localhost:5000/api/getPost', {
-            id: 'hellow',
-            message: 'hey',
+    SubmitForm = () => {
+        const {userName, passWord, users} = this.state;
+        axois.post('http://localhost:5000/api/validUser', {
+            userName,
+            passWord,
         })
         .then(res =>{
-            console.log('runned');
-        })
-    }
-    Submit = (event) => {
-        this.fetchDataFromServer();
-        const {userName, passWord, users} = this.state;
-        const { routeTo } = this.props;
-        event.preventDefault();
-        const currentUser = users.filter((user)=>{return user.username===userName&&user.password===passWord});
-        if(currentUser.length){
-            localStorage.setItem("currentUser", JSON.stringify(currentUser[0]));
-            if(routeTo===undefined){
-                console.log('current user', currentUser[0].status);
-                this.props.history.push('/'+currentUser[0].status);
-            }else{
-                this.props.history.push(routeTo);
+            console.log('runned: ' , res);
+            if(res.data.status !=="null" ){
+                const currentUser = {
+                    userName,
+                    passWord,
+                }
+                localStorage.setItem("currentUser", JSON.stringify(currentUser));
+                if(this.props.routeTo===undefined){
+                    this.props.history.push('/'+res.data.status);
+                }
+                else{
+                    this.props.history.push(this.props.routeTo);
+                } 
             }
+            else{
+                this.setState({
+                    displayError: true
+                }) 
+            }
+        })
+        .catch(err=>{
+            console.error("error araha ha",err);
+        })
+        //event.preventDefault();
+        // const currentUser = users.filter((user)=>{return user.username===userName&&user.password===passWord});
+        // if(currentUser.length){
+        //     localStorage.setItem("currentUser", JSON.stringify(currentUser[0]));
+        //     if(routeTo===undefined){
+        //         console.log('current user', currentUser[0].status);
+        //         this.props.history.push('/'+currentUser[0].status);
+        //     }else{
+        //         this.props.history.push(routeTo);
+        //     }
 
-        }
-        else {
-            this.setState({
-                displayError: true
-            })
-        }
+        // }
+        // else {
+        //     this.setState({
+        //         displayError: true
+        //     })
+        // }
     }
     onChangeWithInputs = (event) => {
         event.preventDefault();
@@ -70,6 +77,20 @@ class Login extends Component {
     }
     SignUp = ()=>{
         console.log("Sign Up");
+        const {userName, passWord} = this.state;
+        axois.post('http://localhost:5000/api/addUser', {
+            userName,
+            passWord,
+        })
+        .then(res =>{
+            console.log('hello');
+        })
+        .catch(err=>{
+            console.error(err);
+        })
+    }
+    Submit=(event)=>{
+        event.preventDefault();
     }
     render() {
         const {userName, passWord} = this.state;
@@ -100,12 +121,12 @@ class Login extends Component {
                         label="Pass Word"
                             />
                         <div className="login-btn" >
-                            <button type="submit" className="btn waves-effect waves-light light-blue darken-2" name="action">Submit
+                            <button className="btn waves-effect waves-light light-blue darken-2" name="action" onClick={this.SubmitForm}>Submit
                                 <i className="material-icons right">send</i>
                             </button>
                         </div>
                         <div className="signBtn-btn" >
-                            <button type="btn" className="btn waves-effect waves-light light-blue darken-2" onClick={this.SignUp}>Sign Up
+                            <button className="btn waves-effect waves-light light-blue darken-2" onClick={this.SignUp}>Sign Up
                             </button>
                         </div>
                     </form>

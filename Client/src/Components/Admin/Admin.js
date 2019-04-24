@@ -1,9 +1,19 @@
 import React, {Component} from 'react';
 
 class Admin extends Component{
+    state={
+        userList: [],
+    }
     render(){
         return(
-            <h1>Hello World from Admin</h1>
+            <div>
+                <h1>Hello .comWorld from Admin</h1>
+                {
+                    this.state.userList.map(user=>
+                        <h3>user.userName</h3>
+                    )
+                }
+            </div>
         )
     }
 }
