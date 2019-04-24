@@ -1,0 +1,19 @@
+.admin-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+.admin-wrapper{
+    padding: 10px;
+}
+.admin-wrapper p{
+    font-size: 30px;
+}
+.user-detail{
+    border: 1px solid gray;
+    padding-left: 10px;
+}
+input[type="text"]{
+    font-size: 30px;
+}

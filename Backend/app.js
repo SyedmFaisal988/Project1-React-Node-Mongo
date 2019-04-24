@@ -5,7 +5,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const config = require('config');
 const dbRoute = config.get('mongoUri');
-const User = require('./User');
+const User = require('./models/User');
 mongoose.connect(dbRoute, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -16,7 +16,7 @@ mongoose.connect(dbRoute, {
     //     userName: 'faisal',
     //     password: '12345',
     //     status: 'admin',
-    // })
+    // })S
     // newUser.save();
     // User.deleteOne({userName: "admin"})
     // .then(resp=>{
@@ -46,15 +46,29 @@ router.post('/validUser', (req, res)=>{
 })
 
 router.get('/getData', (req, res)=>{
-    User.findOne({userName: 'faisal'})
+    User.find()
     .then(response=>{
-        console.log('getData')
+        console.log('response: ', response);
         return res.json(response);  
     })
     .catch(err=>{
-        return {"err": "ERR"}
+        return res.json({"err": err});
     })
 })
+
+router.post('/updateUser', (req, res)=>{
+    console.log(" to be updated",req.body);
+    User.findOneAndUpdate({userName: req.body.userName}, {$set: { "status": req.body.status}}, {new: true})
+    .then((response)=>{ 
+        console.log("updated user", response);
+        return res.json(response);
+    })
+    .catch(err=>{
+        console.log('update error', err);
+        return res.json({"err": err});
+    })
+})
+
 router.post('/addUser', (req, res)=>{
     const { userName, passWord} = req.body;
     let newUser = new User({

@@ -26,7 +26,6 @@ const PrivateRoute = ({ component: Component,currentUser,...rest})=>{
     const user = JSON.parse(localStorage.getItem("currentUser"));
     console.log()
     if(user!==null){
-        console.log('yahan tu aya');
         return <Route {...rest} render={(props)=> <Component {...props}/>} />
     }else{
         return <Route {...rest} render={(props) => <Login history={props.history} routeTo={props.path} />} />
